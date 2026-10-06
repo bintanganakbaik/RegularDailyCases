@@ -1,0 +1,119 @@
+{
+    "id": "case-001",
+    "title": "The Stolen Necklace",
+    "type": "robbery",
+    "difficulty": "easy",
+    "estimatedTime": "15-20 minutes",
+
+    "briefing": {
+        "summary": "Ms. Emma's cherished necklace, valued at $9,000, has gone missing from her office desk. She only removed the necklace when necessary, and this morning she left it on her desk while using the restroom. When she returned, the necklace was gone.",
+        "objectives": [
+            "Investigate the crime scene.",
+            "Collect and analyze evidence.",
+            "Identify potential suspects.",
+            "Determine who stole the necklace."
+        ]
+    },
+
+    "suspects": [
+        {
+            "name": "Ms. Emma",
+            "description": "The victim and owner of the stolen necklace. She is meticulous and organized and takes great care of her belongings."
+        },
+        {
+            "name": "Mr. John",
+            "description": "A colleague of Ms. Emma who has praised the necklace on several occasions. He has a history of financial troubles."
+        },
+        {
+            "name": "Ms. Sarah",
+            "description": "Another colleague who was present in the office during the time of the theft. She is known to envy other people's possessions and once mocked Ms. Emma's necklace."
+        }
+    ],
+
+    "evidence": [
+        {
+            "id": "evidence-001",
+            "type": "fingerprint",
+            "description": "A partial fingerprint found on the office desk where the necklace was last seen."
+        },
+        {
+            "id": "evidence-002",
+            "type": "cctv",
+            "description": "Security footage showing Ms. Emma leaving her desk at 10:30 AM. A portion of the camera's view is obstructed, creating a blind spot that includes Emma's desk."
+        },
+        {
+            "id": "evidence-003",
+            "type": "witness_statement",
+            "description": "A colleague claims to have seen someone near Ms. Emma's desk around the time of the theft."
+        },
+        {
+            "id": "evidence-004",
+            "type": "fingerprint_analysis",
+            "description": "Analysis of the partial fingerprint found on the desk confirms that it belongs to Mr. John."
+        },
+        {
+            "id": "evidence-005",
+            "type": "security_log",
+            "description": "Office access records show that Mr. John entered the area at 10:31 AM and left at 10:36 AM."
+        }
+    ],
+
+    "timeline": [
+        {
+            "time": "09:00 AM",
+            "event": "Ms. Emma arrives at the office and places her necklace on her desk."
+        },
+        {
+            "time": "10:30 AM",
+            "event": "Ms. Emma leaves her desk to use the restroom, leaving the necklace behind."
+        },
+        {
+            "time": "10:35 AM",
+            "event": "A figure briefly appears at the edge of the CCTV blind spot."
+        },
+        {
+            "time": "10:38 AM",
+            "event": "Ms. Emma returns to her desk and discovers that the necklace is missing."
+        },
+        {
+            "time": "10:40 AM",
+            "event": "Ms. Emma reports the theft to office security and management."
+        }
+    ],
+
+    "contradictions": [],
+
+    "solution": {
+        "suspect": "Mr. John",
+
+        "requiredEvidence": [
+            "evidence-001",
+            "evidence-004",
+            "evidence-005"
+        ],
+
+        "supportingEvidence": [
+            "evidence-002",
+            "evidence-003"
+        ],
+
+        "importantConnections": [
+            {
+                "from": "evidence-001",
+                "to": "evidence-004",
+                "relationship": "The fingerprint found at Emma's desk belongs to Mr. John."
+            },
+            {
+                "from": "evidence-002",
+                "to": "evidence-005",
+                "relationship": "The figure appears during the same period that John was recorded as being in the area."
+            }
+        ],
+
+        "reasoning": "The fingerprint found on Emma's desk belongs to Mr. John. Security records place John in the area between 10:31 AM and 10:36 AM, during the period when Emma was away. CCTV footage shows an unidentified figure appearing near the desk's blind spot during the same period. Together, these clues strongly indicate that John used the opportunity to steal the necklace. His financial troubles provide a possible motive.",
+
+        "ending": {
+            "summary": "Mr. John is arrested for the theft of Ms. Emma's necklace, and the stolen necklace is recovered."
+        }
+    }
+}

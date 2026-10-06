@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Investigation | Regular Daily Cases</title>
+
+    <link rel="stylesheet" href="../css/global.css">
+
+    <script src="../js/core.js" defer></script>
+    <script src="../js/case-loader.js" defer></script>
+</head>
+
+<body>
+
+    <header class="global-header">
+        <div class="app-container header-content">
+
+            <a href="../index.html" class="header-logo">
+                <span class="logo-badge">RDC</span>
+                <span>REGULAR DAILY CASES</span>
+            </a>
+
+            <div class="header-case-info">
+                CASE FILE: <span id="header-case-id">#001</span>
+            </div>
+
+        </div>
+    </header>
+
+
+    <main class="app-container main-content">
+
+        <section class="paper-card">
+
+            <div class="mono-text">CASE #<span id="case-number">001</span></div>
+
+            <h1 id="case-title">Loading case...</h1>
+
+            <p id="case-type">Loading...</p>
+
+            <p id="case-status">
+                INVESTIGATION IN PROGRESS
+            </p>
+
+        </section>
+
+
+        <section class="paper-card">
+
+            <div class="mono-text">EVIDENCE</div>
+
+            <h2>Available Evidence</h2>
+
+            <div id="evidence-list">
+                <p>Loading evidence...</p>
+            </div>
+
+        </section>
+
+
+        <section class="paper-card">
+
+            <div class="mono-text">PERSONS OF INTEREST</div>
+
+            <h2>Suspects</h2>
+
+            <div id="suspect-list">
+                <p>Loading suspects...</p>
+            </div>
+
+        </section>
+
+
+        <section class="paper-card">
+
+            <div class="mono-text">CHRONOLOGICAL RECORD</div>
+
+            <h2>Timeline</h2>
+
+            <div id="timeline-list">
+                <p>Loading timeline...</p>
+            </div>
+
+        </section>
+
+
+        <section class="paper-card">
+
+            <div class="mono-text">INVESTIGATION STATUS</div>
+
+            <h2>Case Progress</h2>
+
+            <div id="investigation-status">
+                <p>Loading case status...</p>
+            </div>
+
+        </section>
+
+
+        <section class="paper-card">
+
+            <div class="mono-text">EVIDENCE DETAIL</div>
+
+            <h2>Selected Evidence</h2>
+
+            <div id="evidence-detail">
+                <p>Select evidence to inspect it.</p>
+            </div>
+
+        </section>
+
+
+        <nav class="paper-card">
+
+            <div class="mono-text">CASE NAVIGATION</div>
+
+            <p>
+                <a href="briefing.html">← Briefing</a>
+            </p>
+
+            <p>
+                <a href="evidence.html">Evidence Archive</a>
+            </p>
+
+            <p>
+                <a href="suspects.html">Suspect Dossiers</a>
+            </p>
+
+            <p>
+                <a href="timeline.html">Case Timeline</a>
+            </p>
+
+            <p>
+                <a href="board.html">Evidence Board</a>
+            </p>
+
+            <p>
+                <a href="conclusion.html">
+                    Final Conclusion →
+                </a>
+            </p>
+
+        </nav>
+
+    </main>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+
+            const caseData = await window.caseLoader.loadCase();
+
+            if (!caseData) {
+                document.getElementById('case-title').textContent =
+                    'Unable to load case';
+
+                return;
+            }
+
+
+            // Case information
+
+            document.getElementById('header-case-id').textContent =
+                `#${caseData.id.replace('case-', '')}`;
+
+            document.getElementById('case-number').textContent =
+                caseData.id.replace('case-', '');
+
+            document.getElementById('case-title').textContent =
+                caseData.title;
+
+            document.getElementById('case-type').textContent =
+                `${caseData.type.toUpperCase()} • ${caseData.difficulty.toUpperCase()} • ${caseData.estimatedTime}`;
+
+
+            // Evidence
+
+            const evidenceList =
+                document.getElementById('evidence-list');
+
+            evidenceList.innerHTML = '';
+
+            caseData.evidence.forEach((evidence) => {
+
+                const item = document.createElement('div');
+
+                item.className = 'paper-card';
+
+                item.innerHTML = `
+                    <div class="mono-text">${evidence.id}</div>
+                    <h3>${formatEvidenceType(evidence.type)}</h3>
+                    <p>${evidence.description}</p>
+                    <p class="mono-text">STATUS: AVAILABLE</p>
+                `;
+
+                evidenceList.appendChild(item);
+
+            });
+
+
+            // Suspects
+
+            const suspectList =
+                document.getElementById('suspect-list');
+
+            suspectList.innerHTML = '';
+
+            caseData.suspects.forEach((suspect, index) => {
+
+                const item = document.createElement('div');
+
+                item.className = 'paper-card';
+
+                item.innerHTML = `
+                    <div class="mono-text">
+                        SUSPECT-${String(index + 1).padStart(3, '0')}
+                    </div>
+
+                    <h3>${suspect.name}</h3>
+
+                    <p>${suspect.description}</p>
+                `;
+
+                suspectList.appendChild(item);
+
+            });
+
+
+            // Timeline
+
+            const timelineList =
+                document.getElementById('timeline-list');
+
+            timelineList.innerHTML = '';
+
+            caseData.timeline.forEach((event) => {
+
+                const item = document.createElement('div');
+
+                item.className = 'paper-card';
+
+                item.innerHTML = `
+                    <div class="mono-text">${event.time}</div>
+                    <p>${event.event}</p>
+                `;
+
+                timelineList.appendChild(item);
+
+            });
+
+
+            // Investigation status
+
+            const investigationStatus =
+                document.getElementById('investigation-status');
+
+            investigationStatus.innerHTML = `
+                <p>
+                    Evidence: ${caseData.evidence.length}
+                </p>
+
+                <p>
+                    Suspects: ${caseData.suspects.length}
+                </p>
+
+                <p>
+                    Timeline Events: ${caseData.timeline.length}
+                </p>
+
+                <p>
+                    Conclusion: NOT READY
+                </p>
+            `;
+
+        });
+
+
+        function formatEvidenceType(type) {
+
+            return type
+                .replaceAll('_', ' ')
+                .replace(/\b\w/g, character => character.toUpperCase());
+
+        }
+    </script>
+
+</body>
+
+</html>

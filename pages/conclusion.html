@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Case Conclusion | Regular Daily Cases</title>
+
+    <link rel="stylesheet" href="../css/global.css">
+
+    <script src="../js/core.js" defer></script>
+    <script src="../js/session.js" defer></script>
+    <script src="../js/conclusion.js" defer></script>
+</head>
+
+<body>
+
+    <header class="global-header">
+
+        <div class="app-container header-content">
+
+            <a href="../index.html" class="header-logo">
+                <span class="logo-badge">RDC</span>
+                <span>REGULAR DAILY CASES</span>
+            </a>
+
+            <div class="header-case-info">
+                CASE FILE: <span id="header-case-id">#001</span>
+                • FINAL CONCLUSION
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <main class="app-container main-content">
+
+
+        <section class="paper-card">
+
+            <div class="mono-text">
+                CASE #<span id="case-number">001</span>
+                // FINAL CONCLUSION
+            </div>
+
+            <h1 id="case-title">
+                The Stolen Necklace
+            </h1>
+
+            <p>
+                You have reviewed the available evidence,
+                suspects, and timeline.
+                It is now time to make your conclusion.
+            </p>
+
+        </section>
+
+
+        <section class="paper-card">
+
+            <div class="mono-text">
+                SELECT SUSPECT
+            </div>
+
+            <h2>
+                Who do you believe is responsible?
+            </h2>
+
+            <div id="suspect-options">
+
+                <label class="paper-card">
+                    <input
+                        type="radio"
+                        name="suspect"
+                        value="Ms. Emma"
+                    >
+                    <strong>Ms. Emma</strong>
+                </label>
+
+                <label class="paper-card">
+                    <input
+                        type="radio"
+                        name="suspect"
+                        value="Mr. John"
+                    >
+                    <strong>Mr. John</strong>
+                </label>
+
+                <label class="paper-card">
+                    <input
+                        type="radio"
+                        name="suspect"
+                        value="Ms. Sarah"
+                    >
+                    <strong>Ms. Sarah</strong>
+                </label>
+
+            </div>
+
+        </section>
+
+
+        <section class="paper-card">
+
+            <div class="mono-text">
+                INVESTIGATOR'S REASONING
+            </div>
+
+            <h2>
+                What happened?
+            </h2>
+
+            <p>
+                Explain your conclusion using the evidence
+                you discovered during the investigation.
+            </p>
+
+            <textarea
+                id="reasoning"
+                rows="8"
+                placeholder="Write your conclusion here..."
+            ></textarea>
+
+        </section>
+
+
+        <section class="paper-card">
+
+            <button
+                type="button"
+                class="button"
+                id="submit-conclusion"
+            >
+                SUBMIT CONCLUSION
+            </button>
+
+        </section>
+
+
+        <section
+            class="paper-card"
+            id="result-panel"
+            hidden
+        >
+        </section>
+
+
+        <nav class="paper-card">
+
+            <div class="mono-text">
+                CASE NAVIGATION
+            </div>
+
+            <p>
+                <a href="investigation.html">
+                    ← Investigation Room
+                </a>
+            </p>
+
+            <p>
+                <a href="evidence.html">
+                    Evidence Archive
+                </a>
+            </p>
+
+            <p>
+                <a href="suspects.html">
+                    Suspect Dossiers
+                </a>
+            </p>
+
+            <p>
+                <a href="timeline.html">
+                    Case Timeline
+                </a>
+            </p>
+
+            <p>
+                <a href="board.html">
+                    Evidence Board
+                </a>
+            </p>
+
+        </nav>
+
+    </main>
+
+</body>
+
+</html>

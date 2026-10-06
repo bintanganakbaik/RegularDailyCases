@@ -1,0 +1,63 @@
+{
+    "id": "case-XXX",
+    "title": "",
+    "type": "",
+    "difficulty": "easy",
+    "estimatedTime": "",
+
+    "briefing": {
+        "summary": "",
+        "objectives": [
+            "Investigate the crime scene.",
+            "Collect and analyze evidence.",
+            "Identify potential suspects.",
+            "Solve the case."
+        ]
+    },
+
+    "suspects": [
+        {
+            "name": "",
+            "description": ""
+        }
+    ],
+
+    "evidence": [
+        {
+            "id": "evidence-001",
+            "type": "",
+            "description": ""
+        }
+    ],
+
+    "timeline": [
+        {
+            "time": "",
+            "event": ""
+        }
+    ],
+
+    "contradictions": [],
+
+    "solution": {
+        "suspect": "",
+
+        "requiredEvidence": [],
+
+        "supportingEvidence": [],
+
+        "importantConnections": [
+            {
+                "from": "",
+                "to": "",
+                "relationship": ""
+            }
+        ],
+
+        "reasoning": "",
+
+        "ending": {
+            "summary": ""
+        }
+    }
+}

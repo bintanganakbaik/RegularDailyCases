@@ -1,0 +1,355 @@
+/* STREAMING_CHUNK: Defining CSS variables for the color palette and typography... */
+:root {
+/* Color Palette */
+--color-ivory: #F2EFE8;
+--color-paper-gray: #D8D4CA;
+--color-police-blue: #263B52;
+--color-dark: #20252A;
+--color-vintage-brown: #765C43;
+--color-muted-red: #9A3D32;
+--color-paper-white: #FCFBF8; /* Crisp paper contrast against ivory */
+
+/* Typography */
+--font-ui: 'Inter', system-ui, -apple-system, sans-serif;
+--font-heading: 'Lora', Georgia, serif;
+--font-mono: 'Roboto Mono', 'Courier New', monospace;
+
+/* Spacing & Layout */
+--spacing-xs: 0.5rem;
+--spacing-sm: 1rem;
+--spacing-md: 2rem;
+--spacing-lg: 3rem;
+--spacing-xl: 5rem;
+--max-width-content: 1000px;
+--max-width-reading: 700px;
+
+
+}
+
+/* STREAMING_CHUNK: Setting up foundational reset and base element styles... */
+*, *::before, *::after {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+}
+
+body {
+font-family: var(--font-ui);
+background-color: var(--color-ivory);
+color: var(--color-dark);
+line-height: 1.6;
+font-size: 16px;
+overflow-x: hidden;
+/* Subtle paper texture approximation via color */
+}
+
+h1, h2, h3, h4, h5, h6 {
+font-family: var(--font-heading);
+font-weight: 600;
+line-height: 1.3;
+color: var(--color-dark);
+}
+
+a {
+color: var(--color-police-blue);
+text-decoration: none;
+transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+a:hover {
+color: var(--color-vintage-brown);
+}
+
+/* STREAMING_CHUNK: Configuring accessibility features and focus states... */
+:focus {
+outline: 2px solid var(--color-vintage-brown);
+outline-offset: 3px;
+}
+
+:focus:not(:focus-visible) {
+outline: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+*, ::before, ::after {
+animation-duration: 0.01ms !important;
+animation-iteration-count: 1 !important;
+transition-duration: 0.01ms !important;
+scroll-behavior: auto !important;
+}
+}
+
+/* STREAMING_CHUNK: Styling the main application shell and layout structure... */
+.app-container {
+display: flex;
+flex-direction: column;
+min-height: 100vh;
+}
+
+.main-content {
+flex: 1;
+width: 100%;
+max-width: var(--max-width-content);
+margin: 0 auto;
+padding: var(--spacing-lg) var(--spacing-sm);
+}
+
+/* STREAMING_CHUNK: Designing the official department header... */
+.global-header {
+background-color: var(--color-police-blue);
+color: var(--color-ivory);
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: var(--spacing-sm) var(--spacing-md);
+border-bottom: 4px solid var(--color-vintage-brown);
+box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.header-logo {
+display: flex;
+align-items: center;
+gap: var(--spacing-xs);
+font-family: var(--font-heading);
+font-weight: 700;
+font-size: 1.25rem;
+color: var(--color-ivory);
+letter-spacing: 0.5px;
+}
+
+.header-logo:hover {
+color: var(--color-paper-gray);
+}
+
+.logo-badge {
+font-size: 1.2rem;
+opacity: 0.9;
+}
+
+.header-case-info {
+font-family: var(--font-mono);
+font-size: 0.85rem;
+background-color: rgba(255, 255, 255, 0.1);
+padding: 0.25rem 0.75rem;
+border: 1px solid rgba(255, 255, 255, 0.2);
+border-radius: 2px;
+letter-spacing: 1px;
+}
+
+/* STREAMING_CHUNK: Creating the physical paper card aesthetic... */
+.paper-card {
+background-color: var(--color-paper-white);
+border: 1px solid var(--color-paper-gray);
+border-radius: 2px;
+padding: var(--spacing-xl);
+box-shadow:
+0 4px 6px -1px rgba(32, 37, 42, 0.05),
+0 1px 3px -1px rgba(32, 37, 42, 0.1),
+inset 0 0 40px rgba(216, 212, 202, 0.1); /*Subtle paper variation */
+position: relative;
+}
+
+.mono-text {
+font-family: var(--font-mono);
+text-transform: uppercase;
+letter-spacing: 1px;
+}
+
+/* STREAMING_CHUNK: Styling the landing page specific components... */
+.landing-card {
+display: flex;
+flex-direction: column;
+align-items: center;
+text-align: center;
+}
+
+.card-stamp {
+color: var(--color-muted-red);
+font-size: 0.85rem;
+font-weight: 600;
+border: 2px solid var(--color-muted-red);
+padding: 0.25rem 0.75rem;
+margin-bottom: var(--spacing-lg);
+opacity: 0.8;
+transform: rotate(-1deg); /* Slight analog imperfection */
+display: inline-block;
+}
+
+.landing-title {
+font-size: 3rem;
+color: var(--color-dark);
+margin-bottom: var(--spacing-xs);
+letter-spacing: -0.5px;
+}
+
+.landing-subtitle {
+font-family: var(--font-ui);
+font-size: 1.2rem;
+color: var(--color-vintage-brown);
+font-weight: 500;
+margin-bottom: var(--spacing-lg);
+}
+
+.divider {
+width: 100%;
+max-width: 200px;
+height: 1px;
+background-color: var(--color-paper-gray);
+margin: var(--spacing-md) 0;
+}
+
+.atmosphere-block {
+max-width: var(--max-width-reading);
+margin: 0 auto var(--spacing-lg);
+color: var(--color-dark);
+font-size: 1.05rem;
+}
+
+.atmosphere-block p {
+margin-bottom: var(--spacing-sm);
+}
+
+.atmosphere-block p:last-child {
+margin-bottom: 0;
+}
+
+/* STREAMING_CHUNK: Designing the primary action buttons... */
+.action-zone {
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: var(--spacing-sm);
+margin-top: var(--spacing-md);
+}
+
+.btn-primary {
+display: inline-block;
+background-color: var(--color-police-blue);
+color: var(--color-ivory);
+font-family: var(--font-ui);
+font-weight: 600;
+font-size: 1.1rem;
+padding: 1rem 2.5rem;
+border: 2px solid transparent;
+border-radius: 2px;
+cursor: pointer;
+box-shadow: 0 2px 4px rgba(38, 59, 82, 0.2);
+}
+
+.btn-primary:hover {
+background-color: var(--color-dark);
+color: var(--color-paper-white);
+transform: translateY(-1px);
+box-shadow: 0 4px 6px rgba(38, 59, 82, 0.3);
+}
+
+.btn-primary:active {
+transform: translateY(1px);
+box-shadow: none;
+}
+
+.action-note {
+font-size: 0.75rem;
+color: var(--color-vintage-brown);
+opacity: 0.8;
+}
+
+/* STREAMING_CHUNK: Formatting the feature cards grid... */
+.landing-features {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: var(--spacing-md);
+margin-top: var(--spacing-lg);
+}
+
+.feature-card {
+background-color: var(--color-paper-white);
+border: 1px solid var(--color-paper-gray);
+border-top: 4px solid var(--color-vintage-brown);
+padding: var(--spacing-md);
+border-radius: 2px;
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.feature-card:hover {
+transform: translateY(-2px);
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06);
+}
+
+.feature-tag {
+display: block;
+font-size: 0.75rem;
+color: var(--color-police-blue);
+margin-bottom: var(--spacing-xs);
+font-weight: 500;
+}
+
+.feature-card h3 {
+font-size: 1.25rem;
+margin-bottom: var(--spacing-xs);
+}
+
+.feature-card p {
+font-size: 0.95rem;
+color: #4a4f55; /* Slightly muted dark for readability */
+}
+
+/* STREAMING_CHUNK: Constructing the global footer... */
+.global-footer {
+background-color: transparent;
+border-top: 1px solid var(--color-paper-gray);
+padding: var(--spacing-md);
+text-align: center;
+color: var(--color-dark);
+opacity: 0.7;
+margin-top: auto;
+}
+
+.global-footer p {
+font-family: var(--font-heading);
+font-size: 0.95rem;
+margin-bottom: var(--spacing-xs);
+}
+
+.footer-subtext {
+font-size: 0.7rem;
+color: var(--color-vintage-brown);
+}
+
+/* STREAMING_CHUNK: Applying responsive breakpoints for tablet and mobile... */
+@media (max-width: 900px) {
+.landing-features {
+grid-template-columns: repeat(2, 1fr);
+}
+}
+
+@media (max-width: 600px) {
+.main-content {
+padding: var(--spacing-md) var(--spacing-sm);
+}
+
+.paper-card {
+    padding: var(--spacing-md);
+}
+
+.landing-title {
+    font-size: 2.2rem;
+}
+
+.landing-features {
+    grid-template-columns: 1fr;
+}
+
+.global-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+}
+
+.header-case-info {
+    align-self: flex-start;
+}
+
+
+}

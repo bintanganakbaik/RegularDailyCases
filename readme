@@ -1,0 +1,905 @@
+# Regular Daily Cases
+
+> An interactive fictional detective investigation game built with HTML, CSS, and Vanilla JavaScript.
+
+---
+
+## 1. Project Overview
+
+**Regular Daily Cases** adalah game investigasi detektif berbasis web.
+
+Pemain berperan sebagai seorang investigator yang menyelesaikan berbagai kasus fiksi melalui:
+
+* Evidence
+* Suspects
+* Witness statements
+* Documents
+* CCTV
+* Messages
+* Call records
+* Timeline
+* Evidence analysis
+* Logical connections
+* Contradictions
+* Final deduction
+
+Game **tidak menggunakan AI di dalam gameplay**.
+
+Semua kasus dibuat secara manual dan disimpan sebagai data JSON.
+
+Teknologi utama:
+
+* HTML
+* CSS
+* Vanilla JavaScript
+* JSON
+* Local/session browser storage jika diperlukan
+* GitHub Pages untuk deployment
+
+---
+
+# 2. Core Philosophy
+
+Game harus terasa seperti **benar-benar menyelidiki kasus**, bukan sekadar membaca cerita lalu memilih jawaban.
+
+Pemain harus:
+
+1. Mengumpulkan informasi.
+2. Membandingkan bukti.
+3. Menghubungkan fakta.
+4. Menilai keterangan tersangka/saksi.
+5. Menyusun kronologi.
+6. Menentukan siapa yang bertanggung jawab.
+7. Menjelaskan bagaimana kasus tersebut terjadi.
+
+### Important
+
+Game tidak boleh terlalu banyak memberi tahu pemain.
+
+Jangan membuat sistem seperti:
+
+> CONTRADICTION FOUND!
+
+atau:
+
+> THIS EVIDENCE PROVES JOHN IS THE CULPRIT!
+
+Pemain harus menemukan hubungan tersebut sendiri.
+
+---
+
+# 3. Case Structure
+
+Setiap kasus memiliki struktur dasar:
+
+```text
+CASE
+├── Basic Information
+├── Briefing
+├── Suspects
+├── Evidence
+├── Timeline
+├── Contradictions
+└── Solution
+```
+
+Solution memiliki:
+
+```text
+SOLUTION
+├── Culprit
+├── Required Evidence
+├── Supporting Evidence
+├── Important Connections
+├── Reasoning
+└── Ending
+```
+
+---
+
+# 4. Case Rules
+
+## Case Duration
+
+Target durasi:
+
+* Easy: 10–20 menit
+* Standard: 15–30 menit
+* Complex: 20–30 menit
+* Hard: 25–40 menit
+* Extreme: 30–45 menit
+
+Durasi bukan aturan mutlak.
+
+Kesulitan lebih ditentukan oleh kompleksitas deduction daripada jumlah evidence.
+
+---
+
+## Case Types
+
+Kasus tidak selalu berupa pembunuhan.
+
+Jenis kasus dapat berupa:
+
+```text
+robbery
+theft
+missing_person
+fraud
+blackmail
+kidnapping
+disappearance
+suspicious_accident
+burglary
+identity_mystery
+murder
+```
+
+Jenis baru boleh ditambahkan jika dibutuhkan.
+
+---
+
+# 5. Investigation Design
+
+Investigasi bersifat:
+
+* Non-linear
+* Semi-guided
+* Evidence-driven
+* Deduction-focused
+
+Pemain tidak harus mengikuti satu urutan tertentu.
+
+Mereka bebas memeriksa evidence, suspect, timeline, dan informasi lainnya.
+
+Namun game tetap memberikan struktur agar pemain tidak benar-benar tersesat.
+
+---
+
+# 6. Evidence System
+
+Evidence dapat memiliki berbagai tipe.
+
+Contoh:
+
+```text
+fingerprint
+fingerprint_analysis
+cctv
+photograph
+document
+message
+call_record
+audio
+receipt
+location
+physical_object
+witness_statement
+security_log
+```
+
+Jenis evidence dapat ditambahkan kapan saja.
+
+`type` digunakan oleh engine sebagai identifier teknis.
+
+Contoh:
+
+```json
+"type": "cctv"
+```
+
+UI dapat menampilkannya sebagai:
+
+> SECURITY FOOTAGE
+
+---
+
+# 7. Evidence Analysis
+
+Beberapa evidence dapat membutuhkan analisis.
+
+Contoh:
+
+```text
+FOUND
+↓
+ANALYZE
+↓
+ANALYSIS RESULT
+```
+
+Contoh Case #001:
+
+```text
+Fingerprint found
+↓
+Fingerprint analysis
+↓
+Fingerprint belongs to Mr. John
+```
+
+Hal ini memungkinkan gameplay investigation terasa lebih aktif daripada hanya membuka semua informasi sekaligus.
+
+---
+
+# 8. Required Evidence
+
+`requiredEvidence` berisi evidence inti yang menjadi dasar penyelesaian kasus.
+
+Contoh:
+
+```json
+"requiredEvidence": [
+    "evidence-001",
+    "evidence-004",
+    "evidence-005"
+]
+```
+
+Pemain tidak harus menemukan seluruh evidence dalam kasus.
+
+Required evidence adalah bukti utama yang dibutuhkan untuk membuat deduction yang benar.
+
+---
+
+# 9. Supporting Evidence
+
+`supportingEvidence` berisi evidence tambahan yang memperkuat deduction.
+
+Contoh:
+
+```json
+"supportingEvidence": [
+    "evidence-002",
+    "evidence-003"
+]
+```
+
+Supporting evidence tidak selalu wajib untuk menyelesaikan kasus.
+
+Evidence ini dapat membantu pemain memahami kasus dengan lebih baik dan dapat digunakan untuk sistem seperti **Perfect Success** di masa depan.
+
+---
+
+# 10. Important Connections
+
+`importantConnections` menyimpan hubungan logis antar-evidence.
+
+Contoh:
+
+```json
+{
+    "from": "evidence-001",
+    "to": "evidence-004",
+    "relationship": "The fingerprint found at the desk belongs to Mr. John."
+}
+```
+
+Important Connections **tidak berarti pemain wajib menggambar koneksi di Evidence Board**.
+
+Evidence Board hanyalah alat visual tambahan.
+
+Pemain tetap dapat menyelesaikan kasus tanpa menggunakan Evidence Board.
+
+---
+
+# 11. Evidence Board
+
+Evidence Board adalah fitur opsional.
+
+Tujuannya:
+
+* Membantu visualisasi
+* Menampilkan evidence
+* Membantu melihat hubungan antar-clue
+* Memberikan detective feeling
+
+Evidence Board bukan mekanik wajib.
+
+Pemain tidak harus menggunakan board untuk menyelesaikan kasus.
+
+---
+
+# 12. Contradictions
+
+Tidak semua kasus harus mempunyai contradiction.
+
+Jika tidak ada:
+
+```json
+"contradictions": []
+```
+
+Jika ada, contradiction harus memiliki hubungan yang jelas.
+
+Contoh:
+
+```json
+"contradictions": [
+    {
+        "id": "contradiction-001",
+        "evidenceA": "evidence-001",
+        "evidenceB": "evidence-005",
+        "description": "The two pieces of evidence cannot both be true under the same timeline.",
+        "discovery": "indirect"
+    }
+]
+```
+
+Default design:
+
+```text
+indirect
+```
+
+Pemain harus menyadari contradiction sendiri.
+
+Game tidak langsung mengumumkan bahwa sebuah contradiction ditemukan.
+
+---
+
+# 13. Final Deduction
+
+Di akhir kasus, pemain memilih:
+
+> Who is responsible?
+
+Kemudian pemain juga menuliskan penjelasan mengenai:
+
+* Siapa pelakunya
+* Apa yang terjadi
+* Bagaimana pelaku melakukannya
+* Mengapa pelaku melakukannya
+
+Culprit merupakan bagian terpenting dari final deduction.
+
+Tidak menggunakan sistem numerical score sebagai fokus utama.
+
+---
+
+# 14. Success
+
+Jika deduction benar:
+
+```text
+SUCCESS
+```
+
+Game dapat menampilkan:
+
+* Arrest scene
+* Culprit portrait
+* Dialogue box
+* Culprit reaction
+* Explanation/resolution
+* Case conclusion
+
+Culprit dapat:
+
+* Mengaku
+* Membela diri
+* Menjelaskan motif
+* Memberikan reaksi tertentu
+
+---
+
+# 15. Failure
+
+Jika deduction salah:
+
+```text
+CASE FAILED
+```
+
+Game **tidak boleh langsung membocorkan solusi**.
+
+Pemain dapat mencoba kembali kasus tersebut.
+
+Tujuannya agar pemain benar-benar melakukan investigasi ulang, bukan langsung membaca jawaban.
+
+---
+
+# 16. Perfect Success
+
+Perfect Success adalah kemungkinan ending terbaik.
+
+Konsep awal:
+
+```text
+Correct Culprit
++
+Required Evidence
++
+Supporting Evidence
++
+Important Connections
+```
+
+Namun aturan final Perfect Success belum dikunci dan akan ditentukan setelah engine dasar selesai.
+
+Jangan membuat sistem Perfect Success terlalu kompleks di awal.
+
+---
+
+# 17. Case Universe
+
+Semua kasus berada dalam:
+
+> **Satu shared universe.**
+
+Kasus tetap dapat berdiri sendiri.
+
+Lore tidak harus dijelaskan langsung.
+
+Lore dapat muncul secara perlahan melalui:
+
+* Nama organisasi
+* Dokumen
+* Simbol
+* Nama orang
+* Kasus lama
+* Berita
+* Referensi antar-case
+* Evidence tertentu
+
+Tujuannya agar pemain perlahan menyadari bahwa kasus-kasus tersebut mungkin memiliki hubungan.
+
+---
+
+# 18. Case Authoring Template
+
+Gunakan template berikut untuk membuat kasus baru:
+
+```json
+{
+    "id": "case-XXX",
+    "title": "",
+    "type": "",
+    "difficulty": "easy",
+    "estimatedTime": "",
+
+    "briefing": {
+        "summary": "",
+        "objectives": [
+            "Investigate the crime scene.",
+            "Collect and analyze evidence.",
+            "Identify potential suspects.",
+            "Solve the case."
+        ]
+    },
+
+    "suspects": [
+        {
+            "name": "",
+            "description": ""
+        }
+    ],
+
+    "evidence": [
+        {
+            "id": "evidence-001",
+            "type": "",
+            "description": ""
+        }
+    ],
+
+    "timeline": [
+        {
+            "time": "",
+            "event": ""
+        }
+    ],
+
+    "contradictions": [],
+
+    "solution": {
+        "suspect": "",
+
+        "requiredEvidence": [],
+
+        "supportingEvidence": [],
+
+        "importantConnections": [
+            {
+                "from": "",
+                "to": "",
+                "relationship": ""
+            }
+        ],
+
+        "reasoning": "",
+
+        "ending": {
+            "summary": ""
+        }
+    }
+}
+```
+
+---
+
+# 19. Golden Architecture Rule
+
+Ini adalah aturan teknis utama project:
+
+> **JSON menyimpan kebenaran kasus. JavaScript menjalankan gameplay. HTML/CSS menampilkan gameplay.**
+
+Jangan hardcode case tertentu di JavaScript.
+
+Contoh yang dilarang:
+
+```javascript
+if (caseId === "case-001") {
+    culprit = "Mr. John";
+}
+```
+
+Engine harus bersifat generic.
+
+Case #001, Case #002, Case #003, dan case berikutnya harus menggunakan engine yang sama.
+
+---
+
+# 20. Separation of Data and Logic
+
+Case content harus berada di:
+
+```text
+cases/
+```
+
+Gameplay logic berada di:
+
+```text
+js/
+```
+
+Styling berada di:
+
+```text
+css/
+```
+
+Assets berada di:
+
+```text
+assets/
+```
+
+Dengan demikian, membuat kasus baru cukup dengan menambahkan file JSON tanpa mengubah core engine.
+
+---
+
+# 21. Current Folder Structure
+
+```text
+RegularDailyCases/
+│
+├── index.html
+│
+├── pages/
+│   ├── briefing.html
+│   ├── investigation.html
+│   ├── evidence.html
+│   ├── suspects.html
+│   ├── timeline.html
+│   ├── board.html
+│   └── conclusion.html
+│
+├── cases/
+│   ├── case-001.json
+│   ├── case-002.json
+│   └── case-003.json
+│
+├── assets/
+│   ├── images/
+│   ├── audio/
+│   └── documents/
+│
+├── css/
+│   ├── global.css
+│   ├── investigation.css
+│   └── board.css
+│
+└── js/
+    ├── core.js
+    ├── case-loader.js
+    ├── evidence.js
+    ├── suspects.js
+    ├── timeline.js
+    ├── board.js
+    ├── conclusion.js
+    └── session.js
+```
+
+---
+
+# 22. Session State
+
+Game menggunakan **session-only state**.
+
+Artinya:
+
+* Tidak ada permanent save system.
+* Progress investigation hanya bersifat sementara.
+* Pemain dapat berpindah antar halaman selama investigation berlangsung.
+* Saat case ditinggalkan/di-reset, investigation state dapat dibersihkan.
+* Tidak ada sistem account atau database.
+
+---
+
+# 23. Visual Direction
+
+Visual game:
+
+> **Bright analog police investigation office**
+
+Bukan:
+
+* Dark noir
+* Horror
+* Black-and-white detective aesthetic
+
+Yang diinginkan:
+
+* Paper
+* Brown folders
+* Typewriter
+* Suspect photographs
+* Document stamps
+* Wired telephone
+* Archive cabinets
+* Police office
+* Cream/gray/navy/brown
+* Bright and comfortable atmosphere
+* Vintage/analog feeling
+
+Suggested palette:
+
+```text
+Ivory       #F2EFE8
+Paper Gray  #D8D4CA
+Police Blue #263B52
+Dark        #20252A
+Vintage     #765C43
+Muted Red   #9A3D32
+```
+
+Font direction:
+
+* Readable modern font untuk body
+* Monospace untuk evidence ID/data
+* Serif untuk heading tertentu
+
+Jangan membuat seluruh UI menggunakan font typewriter.
+
+---
+
+# 24. Audio
+
+Audio digunakan untuk meningkatkan atmosphere.
+
+Contoh:
+
+* Office ambience
+* Typewriter
+* Paper
+* Camera
+* Telephone
+* UI interaction
+* Investigation ambience
+* Ending music
+
+Audio dibuat setelah gameplay utama selesai.
+
+Gameplay lebih penting daripada audio.
+
+---
+
+# 25. Development Rules
+
+Development dilakukan secara bertahap.
+
+Urutan:
+
+```text
+1. Architecture / Page Shell
+2. Visual System / UI
+3. Case Loader + JSON Schema
+4. Evidence / Suspects / Timeline
+5. Evidence Board
+6. Investigation Logic
+7. Conclusion + Success / Failure
+8. Audio
+9. Testing + Refactoring
+10. GitHub Pages Deployment
+```
+
+Jangan membuat semuanya sekaligus jika membuat debugging sulit.
+
+---
+
+# 26. Development Environment
+
+Selama development gunakan local HTTP server seperti:
+
+```text
+Live Server
+```
+
+Jangan mengandalkan:
+
+```text
+file://
+```
+
+karena loading JSON dan asset tertentu dapat bermasalah jika file dibuka langsung melalui browser.
+
+Deployment target:
+
+```text
+GitHub Pages
+```
+
+Project harus tetap kompatibel dengan static hosting.
+
+Tidak membutuhkan backend untuk versi awal.
+
+---
+
+# 27. Current Cases
+
+## Case #001 — The Stolen Necklace
+
+```text
+Type:
+Robbery
+
+Difficulty:
+Easy
+
+Estimated Time:
+15–20 minutes
+
+Culprit:
+Mr. John
+```
+
+Core evidence:
+
+```text
+evidence-001
+Fingerprint found at Emma's desk
+
+evidence-004
+Fingerprint analysis confirms it belongs to Mr. John
+
+evidence-005
+Security log places John in the area between 10:31 AM and 10:36 AM
+```
+
+Supporting evidence:
+
+```text
+evidence-002
+CCTV blind spot with an unidentified figure
+
+evidence-003
+Witness statement about someone near Emma's desk
+```
+
+Case #001 berfungsi sebagai introductory case untuk mengajarkan:
+
+```text
+Evidence
+→ Analysis
+→ Timeline
+→ Connection
+→ Deduction
+```
+
+Case #001 sudah dianggap **LOCKED** dan tidak perlu terus direvisi kecuali ditemukan bug atau masalah fundamental saat implementation/testing.
+
+---
+
+# 28. Planned Cases
+
+### Case #001
+
+**The Stolen Necklace**
+
+Tujuan:
+
+> Basic investigation.
+
+---
+
+### Case #002
+
+Fokus:
+
+> Contradictions and unreliable information.
+
+Pemain mulai belajar bahwa:
+
+> Tidak semua informasi yang diberikan seseorang harus dipercaya.
+
+---
+
+### Case #003
+
+Fokus:
+
+> More complex deduction + introduction of shared-universe lore.
+
+Pemain mulai menyadari bahwa:
+
+> Beberapa kasus mungkin memiliki hubungan yang lebih besar.
+
+---
+
+# 29. Design Principle
+
+Regular Daily Cases harus membuat pemain merasa:
+
+> "Gue nemu sendiri jawabannya."
+
+Bukan:
+
+> "Game ngasih tahu gue jawabannya."
+
+The player should feel like the detective.
+
+The game should provide:
+
+```text
+Information
+Evidence
+People
+Time
+Possibilities
+```
+
+The player provides:
+
+```text
+Observation
+Reasoning
+Connections
+Deduction
+```
+
+---
+
+# 30. Current Project Status
+
+```text
+[LOCKED] Core Concept
+[LOCKED] Game Direction
+[LOCKED] Investigation Philosophy
+[LOCKED] Case #001
+[LOCKED] Initial Case Schema
+[LOCKED] Folder Structure
+
+[NEXT] Create Case #002
+[NEXT] Create Case #003
+[NEXT] Build Investigation Engine
+[NEXT] Build UI
+[NEXT] Implement Case Loader
+[NEXT] Implement Evidence System
+[NEXT] Implement Conclusion System
+[NEXT] Testing
+[NEXT] GitHub Pages
+```
+
+---
+
+## Final Rule
+
+**Do not overengineer the project before the core gameplay works.**
+
+Build the smallest working investigation system first.
+
+Then expand.
+
+**Regular Daily Cases is a detective game first, and a web project second.**
